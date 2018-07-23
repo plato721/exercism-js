@@ -21,10 +21,34 @@ function _encode(inWord, outWord, curLetter, curCount){
                  outWord + flushCurrent(curLetter, curCount),
                  inWord.shift(),
                  1)
+}
 
+function isInt(char){
+  return !isNaN(parseInt(char))
+}
+
+function expandGroup(letter, count) {
+  let expansion = ''
+  for(let i=0; i<parseInt(count); i++){
+    expansion += letter
+  }
+  return expansion
+}
+
+function _decode(inWord, outWord, currentCount=''){
+  if(inWord.length < 1){ return outWord }
+
+  let letterOrCount = inWord.shift()
+
+  if( isInt(letterOrCount) ){
+    return _decode(inWord, outWord, currentCount + letterOrCount)
+  } else {
+    if(currentCount.length < 1){ currentCount = '1' }
+    return _decode(inWord, outWord + expandGroup(letterOrCount, currentCount))
+  }
 }
 
 module.exports = {
   encode: (word)=>{ return _encode(word.split(''), '', '', 0) },
-  decode: (word)=>{ return word }
+  decode: (word)=>{ return _decode(word.split(''), '') }
 }

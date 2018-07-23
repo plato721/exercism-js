@@ -21,19 +21,19 @@ describe('Run-length encoding', function () {
     expect(RLE.encode('AABBBCCCC')).toEqual('2A3B4C');
   });
 
-  xit('decode simple', function () {
+  it('decode simple', function () {
     expect(RLE.decode('2A3B4C')).toEqual('AABBBCCCC');
   });
 
-  xit('encode with single values', function () {
+  it('encode with single values', function () {
     expect(RLE.encode('WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB')).toEqual('12WB12W3B24WB');
   });
 
-  xit('decode with single values', function () {
+  it('decode with single values', function () {
     expect(RLE.decode('12WB12W3B24WB')).toEqual('WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB');
   });
 
-  xit('decode(encode(...))combination', function () {
+  it('decode(encode(...))combination', function () {
     expect(RLE.decode(RLE.encode('zzz ZZ  zZ'))).toEqual('zzz ZZ  zZ');
   });
 });
