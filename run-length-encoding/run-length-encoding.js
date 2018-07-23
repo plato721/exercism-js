@@ -1,22 +1,26 @@
 'use strict'
 
 function flushCurrent(curLetter, curCount) {
-  if(curCount < 2){
-    return curLetter
-  } else {
-    return curCount.toString() + curLetter
-  }
+  return curCount < 2 ? curLetter : curCount.toString() + curLetter
 }
-
-function _encode(inWord, outWord, curLetter, curCount){
+// inWord - an Array of characters to be encoding
+// outWord - the encoded String to recursively assembled and eventually returned
+// curLetter - a way to track the current letter from call to call - when the next letter
+//    differs from this one, we flush it to the output String and set a new one on the next
+//    call
+// curCount - the count of the current letter
+function _encode(inWord, outWord='', curLetter='', curCount=0){
+  // base - nothing left to encode, except possibly a current letter/count
   if(inWord.length < 1){
-    return (outWord + flushCurrent(curLetter, curCount))
+    return outWord + flushCurrent(curLetter, curCount)
   }
 
+  // next letter matches current - increment count and keep going
   if(inWord[0] === curLetter){
     return _encode(inWord.slice(1), outWord, curLetter, curCount + 1)
   }
 
+  // next letter differs from current - append flushing of current to output and keep going
   return _encode(inWord.slice(1),
                  outWord + flushCurrent(curLetter, curCount),
                  inWord.shift(),
@@ -27,6 +31,9 @@ function isInt(char){
   return !isNaN(parseInt(char))
 }
 
+// once it is known the letter to write and how many of them, we call this
+// simple function to perform the expansion.
+// e.g. expandGroup('W', 2) => 'WW'
 function expandGroup(letter, count) {
   let expansion = ''
   for(let i=0; i<parseInt(count); i++){
@@ -35,7 +42,14 @@ function expandGroup(letter, count) {
   return expansion
 }
 
-function _decode(inWord, outWord, currentCount=''){
+// expands an encoded word to a decoded one
+// inWord - the word to be decoded, like '3A4QP' => 'AAAQQQQP'
+// outWord - used by recursive calls as the expanded word is assembled
+// currentCount - the number-as-String, under assembly, current encoding modifier.
+//    so when the function encounters '13P' as it is parsing, it will first make
+//    currentCount '1', then '13', then see the 'P', and will expand and write
+//    that group.
+function _decode(inWord, outWord='', currentCount=''){
   if(inWord.length < 1){ return outWord }
 
   let letterOrCount = inWord.shift()
@@ -49,6 +63,6 @@ function _decode(inWord, outWord, currentCount=''){
 }
 
 module.exports = {
-  encode: (word)=>{ return _encode(word.split(''), '', '', 0) },
-  decode: (word)=>{ return _decode(word.split(''), '') }
+  encode: (word)=>{ return _encode(word.split('')) },
+  decode: (word)=>{ return _decode(word.split('')) }
 }
