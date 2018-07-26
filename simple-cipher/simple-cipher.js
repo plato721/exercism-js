@@ -2,8 +2,25 @@
 
 class Year {
   constructor (key) {
+    if (typeof key === 'string') { this.validateKey(key) }
     this.key = key || this.generateKey()
     this.baselineCode = 'a'.charCodeAt(0)
+  }
+
+  encode (plain) {
+    return plain.split('').map((char, i) => this.encodeLetter(char, i))
+      .join('')
+  }
+
+  decode (encoded) {
+    return encoded.split('').map((char, i) => this.decodeLetter(char, i))
+      .join('')
+  }
+
+  validateKey (key) {
+    if (key.match(/([A-Z]+|\d+)/) || key.length < 1) {
+      throw new Error('Bad key')
+    }
   }
 
   generateKey () {
@@ -29,16 +46,6 @@ class Year {
     let rawDecoded = letter.charCodeAt(0) - this.keyOffset(index)
     while (rawDecoded < this.baselineCode) { rawDecoded += 26 }
     return String.fromCharCode(rawDecoded)
-  }
-
-  encode (plain) {
-    return plain.split('').map((char, i) => this.encodeLetter(char, i))
-      .join('')
-  }
-
-  decode (encoded) {
-    return encoded.split('').map((char, i) => this.decodeLetter(char, i))
-      .join('')
   }
 }
 
