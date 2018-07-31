@@ -1,16 +1,16 @@
 'use strict'
 
-const earthSecondsYear = 31557600
+const earthYearLength = 31557600 // seconds
 
-const secondsYear = {
-  Mercury: 0.2408467 * earthSecondsYear,
-  Venus: 0.6151972 * earthSecondsYear,
-  Earth: 1 * earthSecondsYear,
-  Mars: 1.8808158 * earthSecondsYear,
-  Jupiter: 11.862615 * earthSecondsYear,
-  Saturn: 29.447498 * earthSecondsYear,
-  Uranus: 84.016846 * earthSecondsYear,
-  Neptune: 164.79132 * earthSecondsYear
+const planetsYearLength = {
+  Mercury: 0.2408467 * earthYearLength,
+  Venus: 0.6151972 * earthYearLength,
+  Earth: 1 * earthYearLength,
+  Mars: 1.8808158 * earthYearLength,
+  Jupiter: 11.862615 * earthYearLength,
+  Saturn: 29.447498 * earthYearLength,
+  Uranus: 84.016846 * earthYearLength,
+  Neptune: 164.79132 * earthYearLength
 }
 
 class SpaceAge {
@@ -19,7 +19,7 @@ class SpaceAge {
   }
 
   ageInYears (planet) {
-    return this.round2(this.seconds / secondsYear[planet])
+    return this.round2(this.seconds / planetsYearLength[planet])
   }
 
   round2 (num) {
@@ -27,7 +27,7 @@ class SpaceAge {
   }
 }
 
-Object.keys(secondsYear).forEach(planet => {
+Object.keys(planetsYearLength).forEach(planet => {
   SpaceAge.prototype['on' + planet] = function () {
     return this.ageInYears(planet)
   }
