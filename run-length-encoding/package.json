@@ -1,0 +1,27 @@
+{
+  "name": "run-length-encoding",
+  "version": "1.0.0",
+  "description": "Exercism JavaScript run-length-encoding",
+  "main": "run-length-encoding.js",
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^11.0.1"
+  },
+  "scripts": {
+    "test": "jasmine run-length-encoding.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/plato721/exercism-js.git"
+  },
+  "keywords": [
+    "js",
+    "javascript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plato721/exercism-js/issues"
+  },
+  "homepage": "https://github.com/plato721/exercism-js#readme"
+}
