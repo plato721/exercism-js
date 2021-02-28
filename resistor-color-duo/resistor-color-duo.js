@@ -1,4 +1,4 @@
-const colorCode = color => COLORS.indexOf(color);
+const colorCode = color => COLORS.indexOf(color)
 
 const COLORS = [
   'black',
@@ -10,14 +10,14 @@ const COLORS = [
   'blue',
   'violet',
   'grey',
-  'white',
-];
+  'white'
+]
 
 export const decodedValue = (colors) => {
   return Number.parseInt(
     colors
-      .slice(0,2)
+      .slice(0, 2)
       .map(color => colorCode(color))
       .join('')
   )
-};
+}
